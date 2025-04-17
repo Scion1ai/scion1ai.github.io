@@ -1,0 +1,37 @@
+<script type="module">
+  import * as THREE from 'https://unpkg.com/three@0.150.1/build/three.module.js';
+  import { GLTFLoader } from 'https://unpkg.com/three@0.150.1/examples/jsm/loaders/GLTFLoader.js';
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+  const renderer = new THREE.WebGLRenderer({ alpha: true });
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  document.body.appendChild(renderer.domElement);
+
+  const loader = new GLTFLoader();
+  loader.load('thor.glb', (gltf) => {
+    scene.add(gltf.scene);
+    camera.position.z = 2;
+
+    function animate() {
+      requestAnimationFrame(animate);
+      gltf.scene.rotation.y += 0.01;
+      renderer.render(scene, camera);
+    }
+
+    animate();
+  }, undefined, function (error) {
+    console.error('Error loading model:', error);
+  });
+</script>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ThorGodAI Launcher</title>
+</head>
+<body style="background-color:black; color:white; text-align:center; margin-top: 20%;">
+    <h1>⚡ Welcome to ThorGodAI ⚡</h1>
+    <p>Click below to awaken Thor in God Mode.</p>
+    <a href="/launch" style="font-size:24px; color:yellow;">🔨 Summon Thor</a>
+</body>
+</html>
